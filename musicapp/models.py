@@ -11,16 +11,25 @@ class Artiste(models.Model):
     last_name = models.CharField( max_length=50)
     age = models.IntegerField()
 
+    def get_user_name(self):
+        return self.first_name
+
 
 class Song(models.Model):
-    Artist = models.ForeignKey(Artiste, on_delete = models.PROTECT)
+    
     title = models.CharField(max_length=50)
     date_released = models.DateField(default=datetime.today)
     likes = models.PositiveIntegerField()
-    artiste_id = models.IntegerField()
+    artiste_id = models.ForeignKey(Artiste, on_delete = models.PROTECT)
+
+    def get_title(self):
+        return self.title
 
 class Lyrics(models.Model):
-    Song  = models.ForeignKey(Song, on_delete = models.PROTECT)
+     
     content = models.TextField()
-    song_id = models.IntegerField()
+    song_id =models.ForeignKey(Song, on_delete = models.PROTECT)
+
+    def get_lyric(self):
+        return self.content
 
