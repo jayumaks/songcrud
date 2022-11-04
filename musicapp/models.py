@@ -11,8 +11,9 @@ class Artiste(models.Model):
     last_name = models.CharField( max_length=50)
     age = models.IntegerField()
 
-    def get_user_name(self):
-        return self.first_name
+    def __str__(self):
+        return self.name
+    
 
 
 class Song(models.Model):
@@ -20,16 +21,16 @@ class Song(models.Model):
     title = models.CharField(max_length=50)
     date_released = models.DateField(default=datetime.today)
     likes = models.PositiveIntegerField()
-    artiste_id = models.ForeignKey(Artiste, on_delete = models.PROTECT)
+    artiste_id = models.ForeignKey(Artiste, on_delete = models.CASCADE)
 
-    def get_title(self):
-        return self.title
+    def __str__(self):
+        return self.name
 
 class Lyrics(models.Model):
      
     content = models.TextField()
-    song_id =models.ForeignKey(Song, on_delete = models.PROTECT)
+    song_id =models.ForeignKey(Song, on_delete = models.CASCADE)
 
-    def get_lyric(self):
-        return self.content
+    def __str__(self):
+        return self.name
 
